@@ -1,16 +1,39 @@
-from pessoa import Pessoa
+class Produto:
 
-p1 = Pessoa('Igor', 29)
+    def __init__(self,nome,preco):
+        self.nome = nome
+        self.preco = preco
 
-p2 = Pessoa('Marcela', 25)
+    def desconto(self, percentual):
+        self.preco = self.preco - (self.preco * (percentual /100))
 
-print(p1.get_ano_nascimento())
-print(p2.get_ano_nascimento())
+    @property
+    def nome(self):
+        return self._nome
 
-# p1.falar('TI')
-# p2.falar('Arquitetura')
+    @nome.setter
+    def nome(self, valor):
+        self._nome = valor.title()
 
-#print(p1)
-#<pessoa.Pessoa object at 0x0000015098ADF940>
-#print(p2)
-#<pessoa.Pessoa object at 0x0000015098ADFA20>
+    #Getter
+    @property
+    def preco(self):
+        return self._preco
+
+    #Setter
+    @preco.setter
+    def preco(self, valor):
+        if isinstance(valor, str):
+            valor = float(valor.replace('R$',''))
+
+        self._preco = valor
+
+
+desconto = 10
+p1 = Produto('CAMISETA', 50)
+p1.desconto(desconto)
+print(f'{p1.nome} com o desconto de R${desconto} fica no valor de R${p1.preco}')
+
+p2 = Produto('CANECA', 'R$15')
+p2.desconto(desconto)
+print(f'{p2.nome} com o desconto de R${desconto} fica no valor de R${p2.preco}')
